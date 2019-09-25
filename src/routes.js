@@ -4,7 +4,8 @@ import AtendimentoController from './app/controllers/AtendimentoController';
 const routes = new Router();
 
 routes.get('/atendimento', AtendimentoController.index);
+routes.get('/atendimento/:id', AtendimentoController.indexId);
 routes.post('/atendimento', AtendimentoController.store);
-routes.put('/atendimento/:id', AtendimentoController.update);
+routes.post('/atendimento/:id', AtendimentoController.update);
 
 export default routes;

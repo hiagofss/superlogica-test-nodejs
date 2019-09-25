@@ -1,4 +1,3 @@
-import * as Yup from 'yup';
 import Atendimento from '../models/Atendimento';
 import Mail from '../../lib/Mail';
 
@@ -9,22 +8,17 @@ class AtendimentoController {
     return res.json(atendimentos);
   }
 
-  async store(req, res) {
-    const schema = Yup.object().shape({
-      cpf: Yup.number().required(),
-      email: Yup.string()
-        .email()
-        .required(),
-      mensagem: Yup.string().required(),
+  async indexId(req, res) {
+    const atendimento = await Atendimento.findOne({
+      where: { id: req.params.id },
     });
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Falha na validacao' });
-    }
+    return res.json(atendimento);
+  }
 
+  async store(req, res) {
     const { cpf, email, mensagem } = req.body;
     const status = 'Pendente';
-
     const atendimento = await Atendimento.create({
       cpf,
       email,
@@ -42,22 +36,11 @@ class AtendimentoController {
         status,
       },
     });
+
     return res.json(atendimento);
   }
 
   async update(req, res) {
-    const schema = Yup.object().shape({
-      cpf: Yup.number().required(),
-      email: Yup.string()
-        .email()
-        .required(),
-      mensagem: Yup.string().required(),
-    });
-
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Falha na validacao' });
-    }
-
     const { cpf, email, mensagem, status } = req.body;
 
     const atendimento = await Atendimento.update(
