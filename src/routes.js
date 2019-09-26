@@ -6,6 +6,6 @@ const routes = new Router();
 routes.get('/atendimento', AtendimentoController.index);
 routes.get('/atendimento/:id', AtendimentoController.indexId);
 routes.post('/atendimento', AtendimentoController.store);
-routes.post('/atendimento/:id', AtendimentoController.update);
+routes.put('/atendimento/:id', AtendimentoController.update);
 
 export default routes;
